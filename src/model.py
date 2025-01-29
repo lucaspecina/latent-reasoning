@@ -3,9 +3,9 @@ import torch.nn as nn
 from transformers import AutoModelForCausalLM
 
 class MinimalCoconut(nn.Module):
-    def __init__(self, base_model_name, latent_token_id, start_latent_id, end_latent_id):
+    def __init__(self, base_model, latent_token_id, start_latent_id, end_latent_id):
         super().__init__()
-        self.base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
+        self.base_model = base_model if isinstance(base_model, nn.Module) else AutoModelForCausalLM.from_pretrained(base_model)
         self.latent_token_id = latent_token_id
         self.start_latent_id = start_latent_id
         self.end_latent_id = end_latent_id
